@@ -108,5 +108,14 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
     }),
   ],
+  //...
+  devServer: {
+    static: {
+      // static可以是一个数组，用来配置多个静态资源文件夹
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+  },
   mode: 'development',
 }
