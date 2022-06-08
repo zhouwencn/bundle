@@ -9,5 +9,5 @@ import './css/indexBeauty.css'
 import './css/indexScene.css'
 
 import './css/fontello.css'
-const result = add(6, 6)
+const result = add(6, 18)
 console.log(result)
