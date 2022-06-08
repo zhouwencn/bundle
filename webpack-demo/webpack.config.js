@@ -86,6 +86,17 @@ module.exports = {
           filename: 'static/media/[hash:10][ext][query]',
         },
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        // 也可以将配置写在外面，不写在里面，方便修改
+        // use: {
+        //   loader: 'babel-loader',
+        //   options: {
+        //     presets: ['@babel/preset-env'],
+        //   },
+        // },
+      },
     ],
   },
   plugins: [
