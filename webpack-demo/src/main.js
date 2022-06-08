@@ -8,5 +8,6 @@ import './css/indexLight.css'
 import './css/indexBeauty.css'
 import './css/indexScene.css'
 
+import './css/fontello.css'
 const result = add(6, 6)
 console.log(result)
