@@ -49,6 +49,22 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        type: 'asset',
+      },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            // 小于6kb的图片转为base64
+            // 优点： 减少请求数量 缺点： 提及会变大
+            // 默认为小于 8kb
+            maxSize: 6 * 1024,
+          },
+        },
+      },
     ],
   },
   mode: 'development',
