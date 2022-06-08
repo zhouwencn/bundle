@@ -3,7 +3,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'static/js/bundle.js',
   },
   module: {
     generator: {},
@@ -63,6 +63,13 @@ module.exports = {
             // 默认为小于 8kb
             maxSize: 6 * 1024,
           },
+        },
+        // 将输出的图片指定到特定的目录
+        // hash表示文件名， ext表示文件扩展名 query是一些其他参数
+        // 如果希望文件名可以对hash做一下处理 比如写[hash:10]
+        generator: {
+          // 输入图片的名字
+          filename: 'static/images/[hash][ext][query]',
         },
       },
     ],
