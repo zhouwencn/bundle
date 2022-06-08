@@ -1,0 +1,6 @@
+.light {
+  width: 100px;
+  height: 100px;
+  background: url(../images/light.jpeg);
+  background-size: cover;
+}
