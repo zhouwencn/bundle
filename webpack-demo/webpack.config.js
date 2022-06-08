@@ -73,6 +73,18 @@ module.exports = {
           filename: 'static/images/[hash][ext][query]',
         },
       },
+      // 处理字体图标
+      {
+        test: /\.(eot|svg|ttf|woff2?|mp3|mp4|avi)$/i,
+        type: 'asset/resource', // 原封不动的处理，不做base64处理
+        // 将输出的图片指定到特定的目录
+        // hash表示文件名， ext表示文件扩展名 query是一些其他参数
+        // 如果希望文件名可以对hash做一下处理 比如写[hash:10]
+        generator: {
+          // 输入图片的名字
+          filename: 'static/media/[hash:10][ext][query]',
+        },
+      },
     ],
   },
   mode: 'development',
