@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    // 开发模式不需要输出打包好的文件
+    path: undefined,
     filename: 'static/js/bundle.js',
-    clean: true, // 在生成文件之前清空 output 目录
   },
   module: {
     generator: {},
@@ -102,18 +102,18 @@ module.exports = {
   },
   plugins: [
     new ESLintPlugin({
-      context: path.resolve(__dirname, 'src'),
+      context: path.resolve(__dirname, '../src'),
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
+      template: path.resolve(__dirname, '../public/index.html'),
     }),
   ],
   //...
   devServer: {
-    static: {
-      // static可以是一个数组，用来配置多个静态资源文件夹
-      directory: path.join(__dirname, 'dist'),
-    },
+    // static: {
+    //   // static可以是一个数组，用来配置多个静态资源文件夹
+    //   directory: path.join(__dirname, '../dist'),
+    // },
     compress: true,
     port: 9000,
   },
