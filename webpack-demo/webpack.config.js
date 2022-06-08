@@ -4,6 +4,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'static/js/bundle.js',
+    clean: true, // 在生成文件之前清空 output 目录
   },
   module: {
     generator: {},
