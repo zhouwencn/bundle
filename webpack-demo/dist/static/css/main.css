@@ -1,4 +1,6 @@
 .one {
+  display: -ms-flexbox;
+  display: flex;
   width: 100px;
   height: 100px;
   background-color: tomato;
@@ -68,6 +70,7 @@
   /* opacity: .8; */
 
   /* For safety - reset parent styles, that can break glyph codes*/
+  font-feature-settings: normal;
   font-variant: normal;
   text-transform: none;
 
