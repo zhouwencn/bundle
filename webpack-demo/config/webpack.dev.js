@@ -103,12 +103,13 @@ module.exports = {
             // exclude: /node_modules/, // exclude和include只能二选一
             include: path.resolve(__dirname, '../src'),
             // 也可以将配置写在外面，不写在里面，方便修改
-            // use: {
-            //   loader: 'babel-loader',
-            //   options: {
-            //     presets: ['@babel/preset-env'],
-            //   },
-            // },
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
+                plugins: ['@babel/plugin-transform-runtime'],
+              },
+            },
           },
         ],
       },
