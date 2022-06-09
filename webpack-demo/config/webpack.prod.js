@@ -20,12 +20,49 @@ module.exports = {
         // 执行顺序，从右到左
         // css-loader将css资源编译成commonjs的模块到js中
         // style-loader将js中的css通过创建style标签添加html文件中生效
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            },
+          },
+        ],
       },
       // compiles Less to CSS
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            },
+          },
+          'less-loader',
+        ],
       },
       {
         test: /\.s[ac]ss$/,
@@ -34,6 +71,21 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            },
+          },
           // Compiles Sass to CSS
           'sass-loader',
         ],
@@ -47,6 +99,21 @@ module.exports = {
           },
           {
             loader: 'css-loader', // translates CSS into CommonJS
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // 其他选项
+                    },
+                  ],
+                ],
+              },
+            },
           },
           {
             loader: 'stylus-loader', // compiles Stylus to CSS
