@@ -2,13 +2,38 @@ const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+
+function getStyleLoader(pre) {
+  return [
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            [
+              'postcss-preset-env',
+              {
+                // 其他选项
+              },
+            ],
+          ],
+        },
+      },
+    },
+    pre,
+  ].filter(Boolean)
+}
+
 module.exports = {
   entry: './src/main.js',
-  output: {
-    // 开发模式不需要输出打包好的文件
-    path: undefined,
-    filename: 'static/js/bundle.js',
-  },
+  // output: {
+  //   path: path.resolve(__dirname, '../dist'),
+  //   filename: 'static/js/bundle.js',
+  //   clean: true, // 在生成文件之前清空 output 目录
+  // },
   module: {
     generator: {},
     parser: {},
@@ -20,38 +45,21 @@ module.exports = {
         // 执行顺序，从右到左
         // css-loader将css资源编译成commonjs的模块到js中
         // style-loader将js中的css通过创建style标签添加html文件中生效
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: getStyleLoader(),
       },
       // compiles Less to CSS
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+        use: getStyleLoader('less-loader'),
       },
       {
         test: /\.s[ac]ss$/,
-        use: [
-          // Creates `style` nodes from JS strings
-          MiniCssExtractPlugin.loader,
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
+        use: getStyleLoader('sass-loader'),
       },
       {
         test: /\.styl$/,
         // 换一种写法
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader, // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-          },
-          {
-            loader: 'stylus-loader', // compiles Stylus to CSS
-          },
-        ],
+        use: getStyleLoader('stylus-loader'),
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/i,
@@ -111,15 +119,16 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'static/css/main.css',
     }),
+    new CssMinimizerPlugin(),
   ],
-  //...
+  // 生产模式不需求启后台服务
   devServer: {
-    // static: {
-    //   // static可以是一个数组，用来配置多个静态资源文件夹
-    //   directory: path.join(__dirname, '../dist'),
-    // },
+    static: {
+      // static可以是一个数组，用来配置多个静态资源文件夹
+      directory: path.join(__dirname, '../dist'),
+    },
     compress: true,
-    port: 9000,
+    port: 9066,
   },
   mode: 'development',
 }
