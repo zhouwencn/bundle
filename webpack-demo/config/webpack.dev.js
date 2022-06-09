@@ -130,5 +130,6 @@ module.exports = {
     compress: true,
     port: 9066,
   },
+  devtool: 'cheap-module-source-map',
   mode: 'development',
 }
