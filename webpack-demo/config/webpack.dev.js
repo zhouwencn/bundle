@@ -123,7 +123,8 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
     }),
     new MiniCssExtractPlugin({
-      filename: 'static/css/main.css',
+      filename: 'static/css/[name].css',
+      chunkFilename: 'static/css/[name].chunk.css',
     }),
     new CssMinimizerPlugin(),
   ],
