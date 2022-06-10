@@ -31,7 +31,9 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/[name].js',
+    // 指定type: 'asset',的资源命名方式和生成地址
+    assetModuleFilename: 'static/media/[hash:10][ext][query]',
     clean: true, // 在生成文件之前清空 output 目录
   },
   module: {
@@ -81,10 +83,10 @@ module.exports = {
             // 将输出的图片指定到特定的目录
             // hash表示文件名， ext表示文件扩展名 query是一些其他参数
             // 如果希望文件名可以对hash做一下处理 比如写[hash:10]
-            generator: {
-              // 输入图片的名字
-              filename: 'static/images/[hash][ext][query]',
-            },
+            // generator: {
+            //   // 输入图片的名字
+            //   filename: 'static/images/[hash][ext][query]',
+            // },
           },
           // 处理字体图标
           {
@@ -93,10 +95,10 @@ module.exports = {
             // 将输出的图片指定到特定的目录
             // hash表示文件名， ext表示文件扩展名 query是一些其他参数
             // 如果希望文件名可以对hash做一下处理 比如写[hash:10]
-            generator: {
-              // 输入图片的名字
-              filename: 'static/media/[hash:10][ext][query]',
-            },
+            // generator: {
+            //   // 输入图片的名字
+            //   filename: 'static/media/[hash:10][ext][query]',
+            // },
           },
           {
             test: /\.js$/,
@@ -122,7 +124,8 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
     }),
     new MiniCssExtractPlugin({
-      filename: 'static/css/main.css',
+      filename: 'static/css/[name].css',
+      chunkFilename: 'static/css/[name].chunk.css',
     }),
     new CssMinimizerPlugin(),
   ],
