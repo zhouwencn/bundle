@@ -14,5 +14,19 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
     }),
   ],
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all',
+      cacheGroups: {
+        default: {
+          minSize: 0, // 为了测试把这里改为0
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
   mode: 'production',
 }
