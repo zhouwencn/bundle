@@ -108,5 +108,6 @@ module.exports = {
     port: 9066,
     hot: true, // 开启HMR功能，默认为ture
   },
+  devtool: 'cheap-module-source-map',
   mode: 'development',
 }

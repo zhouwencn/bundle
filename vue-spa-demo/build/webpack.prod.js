@@ -124,5 +124,6 @@ module.exports = {
     port: 9066,
     hot: true, // 开启HMR功能，默认为ture
   },
+  devtool: 'source-map',
   mode: 'production',
 }
