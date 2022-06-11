@@ -2,11 +2,68 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
+
+function resolve(dir) {
+  return path.resolve(__dirname, '../', dir)
+}
+
 module.exports = {
   entry: './src/main.js',
   module: {
     rules: [
-      // ... 其它规则
+      {
+        oneOf: [
+          // 普通的 `.scss` 文件和 `*.vue` 文件中的
+          // `<style lang="scss">` 块都应用它
+          {
+            test: /\.scss$/,
+            use: [
+              'vue-style-loader',
+              'css-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  // 你也可以从一个文件读取，例如 `variables.scss`
+                  // 如果 sass-loader 版本 = 8，这里使用 `prependData` 字段
+                  // 如果 sass-loader 版本 < 8，这里使用 `data` 字段
+                  additionalData: `$color: red; $font-size: 90px;`,
+                },
+              },
+            ],
+          },
+          {
+            test: /\.less$/,
+            use: ['vue-style-loader', 'css-loader', 'less-loader'],
+          },
+          {
+            test: /\.styl(us)?$/,
+            use: ['vue-style-loader', 'css-loader', 'stylus-loader'],
+          },
+          {
+            test: /\.css$/,
+            use: [
+              'vue-style-loader',
+              {
+                loader: 'css-loader',
+                options: { importLoaders: 1 },
+              },
+              'postcss-loader',
+            ],
+          },
+        ],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        // 也可以将配置写在外面babel.config.js
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime'],
+          },
+        },
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -15,7 +72,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../public/index.html'),
+      template: resolve('public/index.html'),
     }),
     new VueLoaderPlugin(),
     new DefinePlugin({
@@ -24,9 +81,9 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.vue', '.js', '.json'],
+    extensions: ['.vue', '.js', '.json'], // 识别文件扩展名
     alias: {
-      '@': path.resolve(__dirname, '../src'),
+      '@': resolve('src'), // 别名
     },
   },
   devServer: {

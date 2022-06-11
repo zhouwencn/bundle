@@ -1,5 +1,7 @@
 <template>
-  <div>{{ msg }}</div>
+  <div>
+    <div class="msg">{{ msg }}</div>
+  </div>
 </template>
 
 <script>
@@ -12,4 +14,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.msg {
+  color: $color;
+  font-size: $font-size;
+}
+</style>
