@@ -69,7 +69,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@vue/cli-plugin-babel/preset'],
             plugins: ['@babel/plugin-transform-runtime'],
           },
         },
@@ -124,5 +124,6 @@ module.exports = {
     port: 9066,
     hot: true, // 开启HMR功能，默认为ture
   },
+  devtool: 'source-map',
   mode: 'production',
 }

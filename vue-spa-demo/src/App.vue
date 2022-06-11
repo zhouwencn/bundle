@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+const a = 'a'
 export default {
   name: 'app',
   data() {

@@ -1,0 +1,2 @@
+# eslint不检查dist打包文件
+dist

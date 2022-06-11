@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 
@@ -53,18 +54,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        // 也可以将配置写在外面babel.config.js
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime'],
-          },
-        },
-      },
-      {
         test: /\.(png|jpe?g|gif|webp)$/i,
         type: 'asset',
         parser: {
@@ -91,6 +80,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: resolve('public/index.html'),
     }),
+    new ESLintPlugin({
+      context: resolve('src'),
+    }),
     new VueLoaderPlugin(),
     new DefinePlugin({
       __VUE_OPTIONS_API__: true,
@@ -108,5 +100,6 @@ module.exports = {
     port: 9066,
     hot: true, // 开启HMR功能，默认为ture
   },
+  devtool: 'cheap-module-source-map',
   mode: 'development',
 }
