@@ -53,18 +53,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        // 也可以将配置写在外面babel.config.js
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime'],
-          },
-        },
-      },
-      {
         test: /\.(png|jpe?g|gif|webp)$/i,
         type: 'asset',
         parser: {

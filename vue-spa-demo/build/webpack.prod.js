@@ -69,7 +69,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@vue/cli-plugin-babel/preset'],
             plugins: ['@babel/plugin-transform-runtime'],
           },
         },
