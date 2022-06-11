@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 
@@ -78,6 +79,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve('public/index.html'),
+    }),
+    new ESLintPlugin({
+      context: resolve('src'),
     }),
     new VueLoaderPlugin(),
     new DefinePlugin({
