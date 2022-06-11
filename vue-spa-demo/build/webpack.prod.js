@@ -1,5 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 
@@ -7,8 +9,16 @@ function resolve(dir) {
   return path.resolve(__dirname, '../', dir)
 }
 console.log(process.env.NODE_ENV)
+const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'static/js/[name].js',
+    // 指定type: 'asset',的资源命名方式和生成地址
+    assetModuleFilename: 'static/media/[hash:10][ext][query]',
+    clean: true, // 在生成文件之前清空 output 目录
+  },
   module: {
     rules: [
       {
@@ -18,7 +28,7 @@ module.exports = {
           {
             test: /\.scss$/,
             use: [
-              'vue-style-loader',
+              MiniCssExtractPlugin.loader,
               'css-loader',
               {
                 loader: 'sass-loader',
@@ -33,16 +43,16 @@ module.exports = {
           },
           {
             test: /\.less$/,
-            use: ['vue-style-loader', 'css-loader', 'less-loader'],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
           },
           {
             test: /\.styl(us)?$/,
-            use: ['vue-style-loader', 'css-loader', 'stylus-loader'],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader'],
           },
           {
             test: /\.css$/,
             use: [
-              'vue-style-loader',
+              MiniCssExtractPlugin.loader,
               {
                 loader: 'css-loader',
                 options: { importLoaders: 1 },
@@ -72,7 +82,7 @@ module.exports = {
             // 小于6kb的图片转为base64
             // 优点： 减少请求数量 缺点： 提及会变大
             // 默认为小于 8kb
-            maxSize: 10 * 1024,
+            maxSize: 6 * 1024,
           },
         },
       },
@@ -91,6 +101,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: resolve('public/index.html'),
     }),
+    // ... 忽略 vue-loader 插件
+    new MiniCssExtractPlugin({
+      filename: 'static/css/[name].css',
+      chunkFilename: 'static/css/[name].chunk.css',
+    }),
+    new CssMinimizerPlugin(),
     new VueLoaderPlugin(),
     new DefinePlugin({
       __VUE_OPTIONS_API__: true,
@@ -108,5 +124,5 @@ module.exports = {
     port: 9066,
     hot: true, // 开启HMR功能，默认为ture
   },
-  mode: 'development',
+  mode: 'production',
 }
