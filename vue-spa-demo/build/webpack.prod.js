@@ -27,7 +27,7 @@ module.exports = {
           {
             test: /\.scss$/,
             use: [
-              'vue-style-loader',
+              MiniCssExtractPlugin.loader,
               'css-loader',
               {
                 loader: 'sass-loader',
@@ -42,16 +42,16 @@ module.exports = {
           },
           {
             test: /\.less$/,
-            use: ['vue-style-loader', 'css-loader', 'less-loader'],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
           },
           {
             test: /\.styl(us)?$/,
-            use: ['vue-style-loader', 'css-loader', 'stylus-loader'],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'stylus-loader'],
           },
           {
             test: /\.css$/,
             use: [
-              'vue-style-loader',
+              MiniCssExtractPlugin.loader,
               {
                 loader: 'css-loader',
                 options: { importLoaders: 1 },
@@ -102,7 +102,8 @@ module.exports = {
     }),
     // ... 忽略 vue-loader 插件
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'static/css/[name].css',
+      chunkFilename: 'static/css/[name].chunk.css',
     }),
     new VueLoaderPlugin(),
     new DefinePlugin({
