@@ -13,4 +13,5 @@ module.exports = {
     'no-var': 2, // 禁止使用var变量,使用了就报错 0：off; 1: warn; 2: error;
     'no-unused-vars': 0, // 允许声明变量但是不使用
   },
+  parser: 'babel-eslint-parser',
 }
