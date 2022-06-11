@@ -16,7 +16,7 @@ module.exports = {
         ? {}
         : {
             '/proxyApi': {
-              target: 'http://demo.renren.io/renren-fast/',
+              target: 'http://localhost:8078/',
               changeOrigin: true,
               pathRewrite: {
                 '^/proxyApi': '/',
