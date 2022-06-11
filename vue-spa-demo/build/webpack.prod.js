@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const { DefinePlugin } = require('webpack')
 
@@ -105,6 +106,7 @@ module.exports = {
       filename: 'static/css/[name].css',
       chunkFilename: 'static/css/[name].chunk.css',
     }),
+    new CssMinimizerPlugin(),
     new VueLoaderPlugin(),
     new DefinePlugin({
       __VUE_OPTIONS_API__: true,
