@@ -3,7 +3,6 @@ const pages = require('./build/pages')
 const externals = require('./build/externals')
 const isProduction = process.env.VUE_APP_MODE === 'production'
 const FileManagerPlugin = require('filemanager-webpack-plugin')
-console.log(pages)
 // 多页配置 End
 const DIST_PATH = path.resolve(
   __dirname,
@@ -97,6 +96,7 @@ module.exports = {
     open: ['home.html'],
   },
   chainWebpack: (config) => {
+    console.log(config)
     if (isProduction) {
       // 移除 prefetch 插件
       config.plugins.delete('prefetch')
