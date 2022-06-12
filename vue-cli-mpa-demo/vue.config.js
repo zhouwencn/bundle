@@ -55,8 +55,13 @@ if (process.env.NODE_ENV === 'production') {
     })
   )
 }
+const titleMap = {
+  about: '关于',
+  home: '家页面',
+  test: '测试页面',
+}
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'development' ? '/' : '',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
   outputDir: DIST_PATH,
   assetsDir: 'static',
   pages,
@@ -66,7 +71,7 @@ module.exports = {
     host: '127.0.0.1',
     port: 33333,
     static: {
-      directory: DIST_PATH,
+      // directory: DIST_PATH,
     },
     proxy: {
       [process.env.VUE_APP_API_URL]: {
@@ -128,7 +133,9 @@ module.exports = {
       // ]
       // config.plugin.tap 是用来修改插件的入参的
       config.plugin(`html-${iterator}`).tap((args) => {
+        const titleKey = args[0].title
         args[0].cdn = cdn
+        args[0].title = titleMap[titleKey]
         return args
       })
     }
