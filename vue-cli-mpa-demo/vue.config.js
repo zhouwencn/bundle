@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
   )
 }
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'development' ? '/' : '',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
   outputDir: DIST_PATH,
   assetsDir: 'static',
   pages,
@@ -66,7 +66,7 @@ module.exports = {
     host: '127.0.0.1',
     port: 33333,
     static: {
-      directory: DIST_PATH,
+      // directory: DIST_PATH,
     },
     proxy: {
       [process.env.VUE_APP_API_URL]: {
